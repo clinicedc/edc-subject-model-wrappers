@@ -1,0 +1,4 @@
+[run]
+include = edc_subject_model_wrapper/*
+omit = edc_subject_model_wrapper/tests/*,edc_subject_model_wrapper/migrations/*
+branch = 1
