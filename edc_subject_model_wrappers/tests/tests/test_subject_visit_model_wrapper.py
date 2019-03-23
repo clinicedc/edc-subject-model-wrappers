@@ -18,7 +18,6 @@ class TestModelWrapper(TestCase):
         site_visit_schedules._registry = {}
         site_visit_schedules.register(visit_schedule=visit_schedule1)
 
-    @tag("1")
     def test_(self):
         model_obj = SubjectVisit()
         wrapper = MySubjectVisitModelWrapper(model_obj=model_obj)
@@ -26,13 +25,14 @@ class TestModelWrapper(TestCase):
             wrapper.model, "edc_subject_model_wrappers.subjectvisit")
         self.assertEqual(wrapper.model_cls, SubjectVisit)
 
-    @tag("1")
     def test_knows_appointment(self):
         appointment = Appointment.objects.create(
             subject_identifier=self.subject_identifier,
             appt_datetime=get_utcnow(),
             appt_reason="scheduled",
             visit_schedule_name="visit_schedule1",
+            schedule_name="schedule1",
+            visit_code="1000",
         )
         subject_visit = SubjectVisit.objects.create(appointment=appointment)
         wrapper = MySubjectVisitModelWrapper(model_obj=subject_visit)
