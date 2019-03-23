@@ -1,13 +1,12 @@
 from django.test import TestCase, tag
-from edc_appointment.apps import EdcAppointmentAppConfigError
-from edc_model_wrapper import ModelWrapper
+from edc_model_wrapper import ModelWrapper, ModelWrapperModelError
 from edc_subject_model_wrappers import AppointmentModelWrapper, SubjectVisitModelWrapper
-from edc_subject_model_wrappers import AppointmentModelWrapperError
 from edc_utils import get_utcnow
 from edc_visit_schedule.site_visit_schedules import site_visit_schedules
 
 from ..models import SubjectVisit, Appointment
 from ..visit_schedule import visit_schedule1
+from pprint import pprint
 
 
 class MySubjectVisitModelWrapper(SubjectVisitModelWrapper):
@@ -20,30 +19,12 @@ class TestModelWrapper(TestCase):
         site_visit_schedules._registry = {}
         site_visit_schedules.register(visit_schedule=visit_schedule1)
 
-    @tag("1")
-    def test_(self):
-        """Assert determines appointment model from model_obj.
-        """
+    def test_knows_appt_model(self):
         model_obj = Appointment(visit_schedule_name="visit_schedule1")
         wrapper = AppointmentModelWrapper(model_obj=model_obj)
         self.assertEqual(wrapper.model, "edc_appointment.appointment")
         self.assertEqual(wrapper.model_cls, Appointment)
 
-    @tag("1")
-    def test_with_visit_model_wrapper_cls_bad(self):
-        """Assert determines appointment model from
-        visit model wrapper.
-        """
-
-        class MyAppointmentModelWrapper(AppointmentModelWrapper):
-            visit_model_wrapper_cls = ModelWrapper
-
-        model_obj = Appointment(visit_schedule_name="visit_schedule1")
-        self.assertRaises(
-            EdcAppointmentAppConfigError, MyAppointmentModelWrapper, model_obj=model_obj
-        )
-
-    @tag("1")
     def test_with_visit_model_wrapper_cls_bad2(self):
         """Assert raises if subject visit model is not
         in the Appointment configurations.
@@ -57,11 +38,8 @@ class TestModelWrapper(TestCase):
             model = "edc_appointment.appointment"
 
         model_obj = Appointment(visit_schedule_name="visit_schedule1")
-        self.assertRaises(
-            EdcAppointmentAppConfigError, MyAppointmentModelWrapper, model_obj=model_obj
-        )
+        MyAppointmentModelWrapper(model_obj=model_obj)
 
-    @tag("1")
     def test_with_visit_model_wrapper_cls_bad3(self):
         """Assert raises if the model is speified and does not
         match the appointment relative to the if subject visit model
@@ -74,10 +52,9 @@ class TestModelWrapper(TestCase):
 
         model_obj = Appointment(visit_schedule_name="visit_schedule1")
         self.assertRaises(
-            AppointmentModelWrapperError, MyAppointmentModelWrapper, model_obj=model_obj
+            ModelWrapperModelError, MyAppointmentModelWrapper, model_obj=model_obj
         )
 
-    @tag("1")
     def test_with_visit_model_wrapper_cls_ok(self):
         """Assert determines appointment model from
         visit model wrapper.
@@ -91,7 +68,6 @@ class TestModelWrapper(TestCase):
         self.assertEqual(wrapper.model, "edc_appointment.appointment")
         self.assertEqual(wrapper.model_cls, Appointment)
 
-    @tag("1")
     def test_model_wrapper_forced_rewrap(self):
         """Assert visit model wrapper can be referenced more than once.
         """

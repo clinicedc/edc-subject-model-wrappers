@@ -21,31 +21,6 @@ class AppointmentModelWrapper(ModelWrapper):
     model = 'edc_appointment.appointment'
     visit_model_wrapper_cls = None
 
-#     def __init__(self, model=None, **kwargs):
-#         if self.visit_model_wrapper_cls:
-#             declared_model = model or self.model
-#
-#             model = visit_model_wrapper_cls
-#
-#             model = (
-#                 django_apps.get_app_config("edc_appointment")
-#                 .get_configuration(
-#                     related_visit_model=self.visit_model_wrapper_cls.model
-#                 )
-#                 .model
-#             )
-#             if declared_model and model != declared_model:
-#                 raise AppointmentModelWrapperError(
-#                     f"Declared model name does not match appointment "
-#                     f"model in visit_model_wrapper. Got self.model='{declared_model}' "
-#                     f"!= {repr(self.visit_model_wrapper_cls)}.model='{model}'. "
-#                     f"Try not explicitly declaring an appointment model if "
-#                     f"'visit_model_wrapper_cls' is declared. "
-#                     f"(e.g. leave cls.model = None)."
-#                 )
-#
-#         super().__init__(model=model, **kwargs)
-
     def get_appt_status_display(self):
         return self.object.get_appt_status_display()
 
@@ -78,10 +53,13 @@ class AppointmentModelWrapper(ModelWrapper):
             )
         visit_model_wrapper = self.visit_model_wrapper_cls(
             model_obj=model_obj, force_wrap=True)
-        if visit_model_wrapper.appointment_model_cls() != self.model_cls:
+        if (visit_model_wrapper.appointment_model_cls._meta.label_lower
+                != self.model_cls._meta.label_lower):
             raise AppointmentModelWrapperError(
                 f"Declared model does not match appointment "
-                f"model in visit_model_wrapper.")
+                f"model in visit_model_wrapper. "
+                f"Got {self.model_cls._meta.label_lower} <> "
+                f"{visit_model_wrapper.appointment_model_cls._meta.label_lower}")
         return visit_model_wrapper
 
     @property

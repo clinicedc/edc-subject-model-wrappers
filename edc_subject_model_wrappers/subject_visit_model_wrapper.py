@@ -15,7 +15,7 @@ class SubjectVisitModelWrapper(ModelWrapper):
 
     @property
     def appointment_model_cls(self):
-        return str(self.object.appointment.__class__)
+        return self.object.appointment.__class__
 
     @property
     def subject_identifier(self):
