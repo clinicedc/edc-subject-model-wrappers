@@ -20,12 +20,12 @@ with open(os.path.join(dirname(abspath(__file__)), 'requirements.txt')) as f:
 os.chdir(os.path.normpath(join(abspath(__file__), os.pardir)))
 
 setup(
-    name='edc-subject-model-wrapper',
+    name='edc-subject-model-wrappers',
     version=VERSION,
     author=u'Erik van Widenfelt',
     author_email='ew2789@gmail.com',
     packages=find_packages(),
-    url='http://github.com/clinicedc/edc-subject-model-wrapper',
+    url='http://github.com/clinicedc/edc-subject-model-wrappers',
     license='GPL license, see LICENSE',
     description='Subject Model wrappers for clinicedc/edc projects',
     long_description=README,
