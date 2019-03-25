@@ -1,12 +1,10 @@
 from edc_model_wrapper import ModelWrapper, PermissionsMixin
-from django.conf import settings
 
 
 class CrfModelWrapper(PermissionsMixin, ModelWrapper):
 
     visit_model_attr = "subject_visit"
-
-    next_url_name = settings.DASHBOARD_URL_NAMES.get("subject_dashboard_url")
+    next_url_name = "subject_dashboard_url"
     next_url_attrs = ["appointment", "subject_identifier"]
     querystring_attrs = [visit_model_attr]
 

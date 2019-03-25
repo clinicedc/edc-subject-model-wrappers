@@ -21,8 +21,7 @@ class TestModelWrapper(TestCase):
     def test_(self):
         model_obj = SubjectVisit()
         wrapper = MySubjectVisitModelWrapper(model_obj=model_obj)
-        self.assertEqual(
-            wrapper.model, "edc_subject_model_wrappers.subjectvisit")
+        self.assertEqual(wrapper.model, "edc_subject_model_wrappers.subjectvisit")
         self.assertEqual(wrapper.model_cls, SubjectVisit)
 
     def test_knows_appointment(self):
