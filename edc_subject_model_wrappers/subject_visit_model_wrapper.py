@@ -23,7 +23,7 @@ class SubjectVisitModelWrapper(ModelWrapper):
 
     @property
     def crf_metadata(self):
-        CrfMetadata = django_apps.get_model('edc_metadata.crfmetadata')
+        CrfMetadata = django_apps.get_model("edc_metadata.crfmetadata")
         return CrfMetadata.objects.filter(
             subject_identifier=self.object.subject_identifier,
             visit_code=self.object.visit_code,
@@ -33,8 +33,7 @@ class SubjectVisitModelWrapper(ModelWrapper):
 
     @property
     def requisition_metadata(self):
-        RequisitionMetadata = django_apps.get_model(
-            'edc_metadata.requisitionmetadata')
+        RequisitionMetadata = django_apps.get_model("edc_metadata.requisitionmetadata")
         return RequisitionMetadata.objects.filter(
             subject_identifier=self.object.subject_identifier,
             visit_code=self.object.visit_code,
