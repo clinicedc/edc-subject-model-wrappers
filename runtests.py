@@ -18,6 +18,7 @@ DEFAULT_SETTINGS = DefaultTestSettings(
     APP_NAME=app_name,
     ETC_DIR=join(base_dir, app_name, "tests", "etc"),
     EDC_BOOTSTRAP=3,
+    SUBJECT_VISIT_MODEL="edc_subject_model_wrappers.subjectvisit",
     INSTALLED_APPS=[
         "django.contrib.admin",
         "django.contrib.auth",
@@ -32,6 +33,7 @@ DEFAULT_SETTINGS = DefaultTestSettings(
         "edc_offstudy.apps.AppConfig",
         "edc_appointment.apps.AppConfig",
         "edc_locator.apps.AppConfig",
+        "edc_registration.apps.AppConfig",
         "edc_metadata.apps.AppConfig",
         "edc_notification.apps.AppConfig",
         "edc_subject_model_wrappers.apps.AppConfig",
