@@ -15,10 +15,6 @@ class SubjectConsent(models.Model):
 
 class SubjectVisit(VisitModelMixin, BaseUuidModel):
 
-    appointment = models.OneToOneField(Appointment, on_delete=PROTECT)
-
-    subject_identifier = models.CharField(max_length=25)
-
     report_datetime = models.DateTimeField(default=get_utcnow)
 
 
