@@ -8,9 +8,9 @@ class AdminSite(DjangoAdminSite):
     pass
 
 
-edc_subject_model_wrapper_admin = AdminSite(name="edc_subject_model_wrapper_admin")
+edc_subject_model_wrappers_admin = AdminSite(name="edc_subject_model_wrappers_admin")
 
-edc_subject_model_wrapper_admin.register(Appointment)
-edc_subject_model_wrapper_admin.register(SubjectConsent)
-edc_subject_model_wrapper_admin.register(SubjectLocator)
-edc_subject_model_wrapper_admin.register(SubjectVisit)
+edc_subject_model_wrappers_admin.register(Appointment)
+edc_subject_model_wrappers_admin.register(SubjectConsent)
+edc_subject_model_wrappers_admin.register(SubjectLocator)
+edc_subject_model_wrappers_admin.register(SubjectVisit)

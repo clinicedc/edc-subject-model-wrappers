@@ -1,4 +1,5 @@
 from django.test import TestCase, tag
+from edc_dashboard.url_names import url_names
 from edc_model_wrapper import ModelWrapper, ModelWrapperModelError
 from edc_subject_model_wrappers import AppointmentModelWrapper, SubjectVisitModelWrapper
 from edc_utils import get_utcnow
@@ -6,7 +7,6 @@ from edc_visit_schedule.site_visit_schedules import site_visit_schedules
 
 from ..models import SubjectVisit, Appointment
 from ..visit_schedule import visit_schedule1
-from pprint import pprint
 
 
 class MySubjectVisitModelWrapper(SubjectVisitModelWrapper):
@@ -15,6 +15,20 @@ class MySubjectVisitModelWrapper(SubjectVisitModelWrapper):
 
 
 class TestModelWrapper(TestCase):
+    @classmethod
+    def setUpClass(cls):
+        url_names.register(
+            "subject_dashboard_url",
+            "subject_dashboard_url",
+            "edc_subject_model_wrapper",
+        )
+        return super().setUpClass()
+
+    @classmethod
+    def tearDownClass(cls):
+        url_names.registry.pop("subject_dashboard_url")
+        super().tearDownClass()
+
     def setUp(self):
         site_visit_schedules._registry = {}
         site_visit_schedules.register(visit_schedule=visit_schedule1)

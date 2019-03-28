@@ -1,11 +1,14 @@
 from django.apps import apps as django_apps
-from edc_model_wrapper import ModelWrapper
+from django.conf import settings
+from django.urls.base import reverse
+from django.urls.exceptions import NoReverseMatch
 from edc_metadata.constants import REQUIRED, KEYED
+from edc_model_wrapper import ModelWrapper
 
 
 class SubjectVisitModelWrapper(ModelWrapper):
 
-    model = None
+    model = settings.SUBJECT_VISIT_MODEL
     next_url_attrs = ["subject_identifier", "appointment", "reason"]
     next_url_name = "subject_dashboard_url"
 
@@ -40,3 +43,23 @@ class SubjectVisitModelWrapper(ModelWrapper):
             visit_code_sequence=self.object.visit_code_sequence,
             entry_status__in=[KEYED, REQUIRED],
         )
+
+    @property
+    def subject_dashboard_href(self):
+        """Returns a complete url + quertystring to return to the
+        subject's dashboard.
+
+        Used by `edc_review_dashboard`.
+        """
+        kwargs = dict(
+            subject_identifier=self.object.subject_identifier,
+            appointment=str(self.object.appointment.pk),
+        )
+        try:
+            url = reverse(self.next_url, kwargs=kwargs)
+        except NoReverseMatch as e:
+            raise NoReverseMatch(
+                f"{e}. Using url_name='{self.next_url}',"
+                f"kwargs={kwargs}.  See {repr(self)}."
+            )
+        return url
