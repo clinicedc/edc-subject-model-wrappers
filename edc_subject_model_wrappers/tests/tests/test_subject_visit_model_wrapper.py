@@ -30,9 +30,10 @@ class TestModelWrapper(TestCase):
 
     @tag("1")
     def test_(self):
-        model_obj = SubjectVisit()
+        model_obj = SubjectVisit(report_datetime=get_utcnow())
         wrapper = SubjectVisitModelWrapper(model_obj=model_obj)
-        self.assertEqual(wrapper.model, "edc_subject_model_wrappers.subjectvisit")
+        self.assertEqual(
+            wrapper.model, "edc_subject_model_wrappers.subjectvisit")
         self.assertEqual(wrapper.model_cls, SubjectVisit)
 
     def test_knows_appointment(self):
@@ -44,6 +45,8 @@ class TestModelWrapper(TestCase):
             schedule_name="schedule1",
             visit_code="1000",
         )
-        subject_visit = SubjectVisit.objects.create(appointment=appointment)
+        subject_visit = SubjectVisit.objects.create(
+            appointment=appointment,
+            report_datetime=get_utcnow())
         wrapper = SubjectVisitModelWrapper(model_obj=subject_visit)
         self.assertEqual(str(appointment.id), wrapper.appointment)

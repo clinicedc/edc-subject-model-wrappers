@@ -15,7 +15,7 @@ class SubjectConsent(models.Model):
 
 class SubjectVisit(VisitModelMixin, BaseUuidModel):
 
-    report_datetime = models.DateTimeField(default=get_utcnow)
+    pass
 
 
 class TestModel(models.Model):
