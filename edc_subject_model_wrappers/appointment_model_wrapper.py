@@ -65,6 +65,10 @@ class AppointmentModelWrapper(ModelWrapper):
         return visit_model_wrapper
 
     @property
+    def dashboard_url(self):
+        return url_names.get(self.dashboard_url_name)
+
+    @property
     def forms_url(self):
         """Returns a reversed URL to show forms for this appointment/visit.
 
@@ -73,8 +77,7 @@ class AppointmentModelWrapper(ModelWrapper):
         kwargs = dict(
             subject_identifier=self.subject_identifier, appointment=self.object.id
         )
-        url_name = url_names.get(self.dashboard_url_name)
-        return reverse(url_name, kwargs=kwargs)
+        return reverse(self.dashboard_url, kwargs=kwargs)
 
     @property
     def unscheduled_appointment_url(self):
@@ -96,5 +99,5 @@ class AppointmentModelWrapper(ModelWrapper):
             timepoint = appointment.timepoint + Decimal("0.1")
         except AttributeError:
             timepoint = Decimal("0.1")
-        kwargs.update(timepoint=str(timepoint), redirect_url=self.dashboard_url_name)
+        kwargs.update(timepoint=str(timepoint), redirect_url=self.dashboard_url)
         return reverse(self.unscheduled_appointment_url_name, kwargs=kwargs)
