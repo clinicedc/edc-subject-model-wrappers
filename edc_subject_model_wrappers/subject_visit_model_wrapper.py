@@ -9,6 +9,8 @@ from edc_model_wrapper import ModelWrapper
 class SubjectVisitModelWrapper(ModelWrapper):
 
     model = settings.SUBJECT_VISIT_MODEL
+    cancel_url_attrs = ["subject_identifier"]
+    cancel_url_name = "subject_dashboard_url"
     next_url_attrs = ["subject_identifier", "appointment"]
     next_url_name = "subject_dashboard_url"
     querystring_attrs = ["reason"]
@@ -37,8 +39,7 @@ class SubjectVisitModelWrapper(ModelWrapper):
 
     @property
     def requisition_metadata(self):
-        RequisitionMetadata = django_apps.get_model(
-            "edc_metadata.requisitionmetadata")
+        RequisitionMetadata = django_apps.get_model("edc_metadata.requisitionmetadata")
         return RequisitionMetadata.objects.filter(
             subject_identifier=self.object.subject_identifier,
             visit_code=self.object.visit_code,
