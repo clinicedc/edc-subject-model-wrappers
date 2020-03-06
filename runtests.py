@@ -10,7 +10,7 @@ from os.path import abspath, dirname, join
 
 
 base_dir = dirname(abspath(__file__))
-app_name = 'edc_subject_model_wrappers'
+app_name = "edc_subject_model_wrappers"
 
 DEFAULT_SETTINGS = DefaultTestSettings(
     calling_file=__file__,
@@ -36,6 +36,7 @@ DEFAULT_SETTINGS = DefaultTestSettings(
         "edc_registration.apps.AppConfig",
         "edc_metadata.apps.AppConfig",
         "edc_notification.apps.AppConfig",
+        "edc_sites.apps.AppConfig",
         "edc_subject_model_wrappers.apps.AppConfig",
     ],
     add_dashboard_middleware=True,
@@ -47,9 +48,10 @@ def main():
     if not settings.configured:
         settings.configure(**DEFAULT_SETTINGS)
     django.setup()
-    tags = [t.split('=')[1] for t in sys.argv if t.startswith('--tag')]
+    tags = [t.split("=")[1] for t in sys.argv if t.startswith("--tag")]
     failures = DiscoverRunner(failfast=False, tags=tags).run_tests(
-        [f'{app_name}.tests'])
+        [f"{app_name}.tests"]
+    )
     sys.exit(failures)
 
 
