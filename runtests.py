@@ -29,6 +29,7 @@ DEFAULT_SETTINGS = DefaultTestSettings(
         "django.contrib.sites",
         "django_crypto_fields.apps.AppConfig",
         "edc_action_item.apps.AppConfig",
+        "edc_crf.apps.AppConfig",
         "edc_timepoint.apps.AppConfig",
         "edc_offstudy.apps.AppConfig",
         "edc_appointment.apps.AppConfig",
