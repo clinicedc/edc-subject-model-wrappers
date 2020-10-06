@@ -28,7 +28,6 @@ class TestModelWrapper(TestCase):
         site_visit_schedules._registry = {}
         site_visit_schedules.register(visit_schedule=visit_schedule1)
 
-    @tag("1")
     def test_(self):
         model_obj = SubjectVisit(report_datetime=get_utcnow())
         wrapper = SubjectVisitModelWrapper(model_obj=model_obj)
