@@ -1,4 +1,4 @@
-|pypi| |travis| |codecov| |downloads|
+|pypi| |actions| |codecov| |downloads|
 
 Edc Subject Model Wrappers
 ==========================
@@ -6,10 +6,10 @@ Edc Subject Model Wrappers
 
 .. |pypi| image:: https://img.shields.io/pypi/v/edc-subject-model-wrappers.svg
     :target: https://pypi.python.org/pypi/edc-subject-model-wrappers
-    
-.. |travis| image:: https://travis-ci.com/clinicedc/edc-subject-model-wrappers.svg?branch=develop
-    :target: https://travis-ci.com/clinicedc/edc-subject-model-wrappers
-    
+
+.. |actions| image:: https://github.com/clinicedc/edc-subject-model-wrappers/workflows/build/badge.svg?branch=develop
+  :target: https://github.com/clinicedc/edc-subject-model-wrappers/actions?query=workflow:build
+
 .. |codecov| image:: https://codecov.io/gh/clinicedc/edc-subject-model-wrappers/branch/develop/graph/badge.svg
   :target: https://codecov.io/gh/clinicedc/edc-subject-model-wrappers
 

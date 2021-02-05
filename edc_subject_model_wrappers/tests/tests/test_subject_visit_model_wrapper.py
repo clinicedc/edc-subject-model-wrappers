@@ -1,10 +1,11 @@
 from django.test import TestCase, tag
 from edc_dashboard.url_names import url_names
-from edc_subject_model_wrappers import SubjectVisitModelWrapper
 from edc_utils import get_utcnow
 from edc_visit_schedule import site_visit_schedules
 
-from ..models import SubjectVisit, Appointment
+from edc_subject_model_wrappers import SubjectVisitModelWrapper
+
+from ..models import Appointment, SubjectVisit
 from ..visit_schedule import visit_schedule1
 
 

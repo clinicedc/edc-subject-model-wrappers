@@ -1,9 +1,10 @@
 from decimal import Decimal
+
 from django.apps import apps as django_apps
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls.base import reverse
-from edc_model_wrapper import ModelWrapper
 from edc_dashboard.url_names import url_names
+from edc_model_wrapper import ModelWrapper
 
 
 class AppointmentModelWrapperError(Exception):
@@ -74,15 +75,12 @@ class AppointmentModelWrapper(ModelWrapper):
 
         This is standard for edc_dashboard.
         """
-        kwargs = dict(
-            subject_identifier=self.subject_identifier, appointment=self.object.id
-        )
+        kwargs = dict(subject_identifier=self.subject_identifier, appointment=self.object.id)
         return reverse(self.dashboard_url, kwargs=kwargs)
 
     @property
     def unscheduled_appointment_url(self):
-        """Returns a url for the unscheduled appointment.
-        """
+        """Returns a url for the unscheduled appointment."""
         Appointment = django_apps.get_model("edc_appointment.appointment")
         kwargs = dict(
             subject_identifier=self.subject_identifier,
