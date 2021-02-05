@@ -12,8 +12,7 @@ class SubjectRefusalModelWrapperMixin:
 
     @property
     def refusal_model_obj(self):
-        """Returns a refusal model instance or None.
-        """
+        """Returns a refusal model instance or None."""
         try:
             model_obj = self.refusal_model_cls.objects.get(
                 screening_identifier=self.object.screening_identifier
@@ -24,8 +23,7 @@ class SubjectRefusalModelWrapperMixin:
 
     @property
     def refusal(self):
-        """Returns a wrapped saved or unsaved refusal.
-        """
+        """Returns a wrapped saved or unsaved refusal."""
         model_obj = self.refusal_model_obj or self.refusal_model_cls(
             screening_identifier=self.object.screening_identifier
         )

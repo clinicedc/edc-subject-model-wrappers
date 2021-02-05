@@ -1,5 +1,5 @@
-from django.urls import path
 from django.contrib import admin
+from django.urls import path
 from edc_appointment.admin_site import edc_appointment_admin
 
 from .admin import edc_subject_model_wrappers_admin

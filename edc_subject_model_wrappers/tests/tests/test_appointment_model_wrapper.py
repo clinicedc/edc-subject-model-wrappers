@@ -1,11 +1,12 @@
 from django.test import TestCase, tag
 from edc_dashboard.url_names import url_names
 from edc_model_wrapper import ModelWrapper, ModelWrapperModelError
-from edc_subject_model_wrappers import AppointmentModelWrapper, SubjectVisitModelWrapper
 from edc_utils import get_utcnow
 from edc_visit_schedule.site_visit_schedules import site_visit_schedules
 
-from ..models import SubjectVisit, Appointment
+from edc_subject_model_wrappers import AppointmentModelWrapper, SubjectVisitModelWrapper
+
+from ..models import Appointment, SubjectVisit
 from ..visit_schedule import visit_schedule1
 
 
@@ -83,8 +84,7 @@ class TestModelWrapper(TestCase):
         self.assertEqual(wrapper.model_cls, Appointment)
 
     def test_model_wrapper_forced_rewrap(self):
-        """Assert visit model wrapper can be referenced more than once.
-        """
+        """Assert visit model wrapper can be referenced more than once."""
 
         class MyAppointmentModelWrapper(AppointmentModelWrapper):
             visit_model_wrapper_cls = MySubjectVisitModelWrapper
