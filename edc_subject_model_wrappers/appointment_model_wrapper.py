@@ -37,6 +37,14 @@ class AppointmentModelWrapper(ModelWrapper):
         return self.object.appt_reason
 
     @property
+    def visit_schedule(self):
+        return self.object.visit_schedule
+
+    @property
+    def schedule(self):
+        return self.object.schedule
+
+    @property
     def wrapped_visit(self):
         """Returns a wrapped persisted or non-persisted
         visit model instance.
@@ -81,7 +89,7 @@ class AppointmentModelWrapper(ModelWrapper):
     @property
     def unscheduled_appointment_url(self):
         """Returns a url for the unscheduled appointment."""
-        Appointment = django_apps.get_model("edc_appointment.appointment")
+        appointment_model_cls = django_apps.get_model("edc_appointment.appointment")
         kwargs = dict(
             subject_identifier=self.subject_identifier,
             visit_schedule_name=self.object.visit_schedule_name,
@@ -89,7 +97,7 @@ class AppointmentModelWrapper(ModelWrapper):
             visit_code=self.object.visit_code,
         )
         appointment = (
-            Appointment.objects.filter(visit_code_sequence__gt=0, **kwargs)
+            appointment_model_cls.objects.filter(visit_code_sequence__gt=0, **kwargs)
             .order_by("visit_code_sequence")
             .last()
         )
