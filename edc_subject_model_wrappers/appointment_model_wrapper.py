@@ -1,4 +1,5 @@
 from decimal import Decimal
+from typing import Any
 
 from django.apps import apps as django_apps
 from django.core.exceptions import ObjectDoesNotExist
@@ -21,31 +22,31 @@ class AppointmentModelWrapper(ModelWrapper):
     model = "edc_appointment.appointment"
     visit_model_wrapper_cls = None
 
-    def get_appt_status_display(self):
+    def get_appt_status_display(self: Any) -> str:
         return self.object.get_appt_status_display()
 
     @property
-    def title(self):
+    def title(self: Any) -> str:
         return self.object.title
 
     @property
-    def visit_code_sequence(self):
+    def visit_code_sequence(self: Any) -> int:
         return self.object.visit_code_sequence
 
     @property
-    def reason(self):
+    def reason(self: Any) -> str:
         return self.object.appt_reason
 
     @property
-    def visit_schedule(self):
+    def visit_schedule(self: Any) -> Any:
         return self.object.visit_schedule
 
     @property
-    def schedule(self):
+    def schedule(self: Any) -> Any:
         return self.object.schedule
 
     @property
-    def wrapped_visit(self):
+    def wrapped_visit(self: Any) -> Any:
         """Returns a wrapped persisted or non-persisted
         visit model instance.
         """
@@ -57,6 +58,7 @@ class AppointmentModelWrapper(ModelWrapper):
                 appointment=self.object,
                 subject_identifier=self.subject_identifier,
                 reason=self.object.appt_reason,
+                report_datetime=self.object.appt_datetime,
             )
         visit_model_wrapper = self.visit_model_wrapper_cls(
             model_obj=model_obj, force_wrap=True
@@ -74,11 +76,11 @@ class AppointmentModelWrapper(ModelWrapper):
         return visit_model_wrapper
 
     @property
-    def dashboard_url(self):
+    def dashboard_url(self: Any) -> str:
         return url_names.get(self.dashboard_url_name)
 
     @property
-    def forms_url(self):
+    def forms_url(self: Any) -> str:
         """Returns a reversed URL to show forms for this appointment/visit.
 
         This is standard for edc_dashboard.
@@ -87,7 +89,7 @@ class AppointmentModelWrapper(ModelWrapper):
         return reverse(self.dashboard_url, kwargs=kwargs)
 
     @property
-    def unscheduled_appointment_url(self):
+    def unscheduled_appointment_url(self: Any) -> str:
         """Returns a url for the unscheduled appointment."""
         appointment_model_cls = django_apps.get_model("edc_appointment.appointment")
         kwargs = dict(
