@@ -29,7 +29,6 @@ DEFAULT_SETTINGS = DefaultTestSettings(
         "multisite",
         "edc_appointment.apps.AppConfig",
         "edc_action_item.apps.AppConfig",
-        "edc_consent.apps.AppConfig",
         "edc_crf.apps.AppConfig",
         "edc_device.apps.AppConfig",
         "edc_dashboard.apps.AppConfig",
@@ -60,7 +59,8 @@ def main():
         settings.configure(**DEFAULT_SETTINGS)
     django.setup()
     tags = [t.split("=")[1] for t in sys.argv if t.startswith("--tag")]
-    failures = DiscoverRunner(failfast=False, tags=tags).run_tests([f"{app_name}.tests"])
+    failfast = any([True for t in sys.argv if t.startswith("--failfast")])
+    failures = DiscoverRunner(failfast=failfast, tags=tags).run_tests([f"{app_name}.tests"])
     sys.exit(failures)
 
 
