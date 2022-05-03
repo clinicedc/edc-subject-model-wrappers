@@ -1,3 +1,5 @@
+from typing import Any
+
 from django.apps import apps as django_apps
 from django.conf import settings
 from django.urls.base import reverse
@@ -16,21 +18,21 @@ class SubjectVisitModelWrapper(ModelWrapper):
     querystring_attrs = ["reason"]
 
     @property
-    def appointment(self):
+    def appointment(self: Any) -> str:
         return str(self.object.appointment.id)
 
     @property
-    def appointment_model_cls(self):
+    def appointment_model_cls(self: Any) -> Any:
         return self.object.appointment.__class__
 
     @property
-    def subject_identifier(self):
+    def subject_identifier(self: Any) -> str:
         return self.object.subject_identifier
 
     @property
-    def crf_metadata(self):
-        CrfMetadata = django_apps.get_model("edc_metadata.crfmetadata")
-        return CrfMetadata.objects.filter(
+    def crf_metadata(self: Any) -> Any:
+        crf_metadata_cls = django_apps.get_model("edc_metadata.crfmetadata")
+        return crf_metadata_cls.objects.filter(
             subject_identifier=self.object.subject_identifier,
             visit_code=self.object.visit_code,
             visit_code_sequence=self.object.visit_code_sequence,
@@ -38,9 +40,9 @@ class SubjectVisitModelWrapper(ModelWrapper):
         )
 
     @property
-    def requisition_metadata(self):
-        RequisitionMetadata = django_apps.get_model("edc_metadata.requisitionmetadata")
-        return RequisitionMetadata.objects.filter(
+    def requisition_metadata(self: Any) -> Any:
+        requisition_metadata_cls = django_apps.get_model("edc_metadata.requisitionmetadata")
+        return requisition_metadata_cls.objects.filter(
             subject_identifier=self.object.subject_identifier,
             visit_code=self.object.visit_code,
             visit_code_sequence=self.object.visit_code_sequence,
@@ -48,7 +50,7 @@ class SubjectVisitModelWrapper(ModelWrapper):
         )
 
     @property
-    def subject_dashboard_href(self):
+    def subject_dashboard_href(self: Any) -> str:
         """Returns a complete url + quertystring to return to the
         subject's dashboard.
 
