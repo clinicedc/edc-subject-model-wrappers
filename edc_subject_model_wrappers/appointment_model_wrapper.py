@@ -50,9 +50,8 @@ class AppointmentModelWrapper(ModelWrapper):
         """Returns a wrapped persisted or non-persisted
         visit model instance.
         """
-        try:
-            model_obj = self.object.visit
-        except ObjectDoesNotExist:
+        model_obj = self.object.visit
+        if not model_obj:
             visit_model = django_apps.get_model(self.visit_model_wrapper_cls.model)
             model_obj = visit_model(
                 appointment=self.object,
