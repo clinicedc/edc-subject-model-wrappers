@@ -50,14 +50,7 @@ class TestModelWrapper(TestCase):
         self.assertEqual(wrapper.model_cls, SubjectVisit)
 
     def test_knows_appointment(self):
-        appointment = Appointment.objects.create(
-            subject_identifier=self.subject_identifier,
-            appt_datetime=get_utcnow(),
-            appt_reason="scheduled",
-            visit_schedule_name="visit_schedule1",
-            schedule_name="schedule1",
-            visit_code="1000",
-        )
+        appointment = Appointment.objects.get(visit_code="1000")
         subject_visit = SubjectVisit.objects.create(
             appointment=appointment, report_datetime=get_utcnow()
         )

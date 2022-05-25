@@ -49,7 +49,6 @@ class TestModelWrapper(TestCase):
             onschedule_datetime=onschedule_datetime,
         )
 
-    @tag("1")
     def test_knows_appt_model(self):
         model_obj = Appointment(
             subject_identifier=self.subject_identifier,
@@ -57,6 +56,7 @@ class TestModelWrapper(TestCase):
             visit_schedule_name="visit_schedule1",
             visit_code="1000",
             schedule_name="schedule1",
+            timepoint=0,
         )
         wrapper = AppointmentModelWrapper(model_obj=model_obj)
         self.assertEqual(wrapper.model, "edc_appointment.appointment")
@@ -125,17 +125,16 @@ class TestModelWrapper(TestCase):
 
         subject_identifier = "12345"
         report_datetime = get_utcnow()
-        appointment = Appointment(
-            subject_identifier=self.subject_identifier,
-            appt_datetime=report_datetime,
-            visit_schedule_name="visit_schedule1",
+        appointment = Appointment.objects.get(
             visit_code="1000",
-            schedule_name="schedule1",
         )
-        subject_visit = SubjectVisit(
+        subject_visit = SubjectVisit.objects.create(
             subject_identifier=subject_identifier,
             appointment=appointment,
             report_datetime=report_datetime,
+            visit_schedule_name="visit_schedule1",
+            visit_code="1000",
+            schedule_name="schedule1",
         )
         wrapper = MyAppointmentModelWrapper(model_obj=appointment)
 
