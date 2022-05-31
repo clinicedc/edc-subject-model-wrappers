@@ -96,15 +96,24 @@ class AppointmentModelWrapper(ModelWrapper):
             visit_schedule_name=self.object.visit_schedule_name,
             schedule_name=self.object.schedule_name,
             visit_code=self.object.visit_code,
+            timepoint=self.object.timepoint,
         )
         appointment = (
             appointment_model_cls.objects.filter(visit_code_sequence__gt=0, **kwargs)
             .order_by("visit_code_sequence")
             .last()
         )
+        # try:
+        #     timepoint = appointment.timepoint + Decimal("0.1")
+        # except AttributeError:
+        #     timepoint = Decimal("0.1")
         try:
-            timepoint = appointment.timepoint + Decimal("0.1")
+            visit_code_sequence = appointment.visit_code_sequence + 1
         except AttributeError:
-            timepoint = Decimal("0.1")
-        kwargs.update(timepoint=str(timepoint), redirect_url=self.dashboard_url)
+            visit_code_sequence = 1
+        kwargs.update(
+            timepoint=str(self.object.timepoint),
+            visit_code_sequence=str(visit_code_sequence),
+            redirect_url=self.dashboard_url,
+        )
         return reverse(self.unscheduled_appointment_url_name, kwargs=kwargs)
