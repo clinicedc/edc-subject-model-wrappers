@@ -1,5 +1,5 @@
 from dateutil.relativedelta import relativedelta
-from django.test import TestCase, tag
+from django.test import TestCase
 from edc_dashboard.url_names import AlreadyRegistered, url_names
 from edc_facility import import_holidays
 from edc_model_wrapper import ModelWrapper, ModelWrapperModelError
