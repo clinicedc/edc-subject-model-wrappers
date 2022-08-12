@@ -64,6 +64,7 @@ schedule2 = Schedule(
     offschedule_model="edc_subject_model_wrappers.offscheduletwo",
     consent_model="edc_visit_tracking.subjectconsent",
     appointment_model="edc_appointment.appointment",
+    base_timepoint=4,
 )
 
 

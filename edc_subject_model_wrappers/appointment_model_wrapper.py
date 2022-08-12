@@ -1,8 +1,6 @@
-from decimal import Decimal
 from typing import Any
 
 from django.apps import apps as django_apps
-from django.core.exceptions import ObjectDoesNotExist
 from django.urls.base import reverse
 from edc_dashboard.url_names import url_names
 from edc_model_wrapper import ModelWrapper
