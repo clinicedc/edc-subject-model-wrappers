@@ -48,7 +48,7 @@ class AppointmentModelWrapper(ModelWrapper):
         """Returns a wrapped persisted or non-persisted
         visit model instance.
         """
-        model_obj = self.object.visit
+        model_obj = self.object.related_visit
         if not model_obj:
             visit_model = django_apps.get_model(self.visit_model_wrapper_cls.model)
             model_obj = visit_model(
@@ -101,10 +101,6 @@ class AppointmentModelWrapper(ModelWrapper):
             .order_by("visit_code_sequence")
             .last()
         )
-        # try:
-        #     timepoint = appointment.timepoint + Decimal("0.1")
-        # except AttributeError:
-        #     timepoint = Decimal("0.1")
         try:
             visit_code_sequence = appointment.visit_code_sequence + 1
         except AttributeError:

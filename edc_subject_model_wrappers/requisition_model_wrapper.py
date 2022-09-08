@@ -5,9 +5,9 @@ from .crf_model_wrapper import CrfModelWrapper
 
 class RequisitionModelWrapper(CrfModelWrapper):
 
-    visit_model_attr = "subject_visit"
+    related_visit_model_attr = "subject_visit"
 
-    querystring_attrs = [visit_model_attr, "panel"]
+    querystring_attrs = [related_visit_model_attr, "panel"]
 
     def __repr__(self):
         return (
