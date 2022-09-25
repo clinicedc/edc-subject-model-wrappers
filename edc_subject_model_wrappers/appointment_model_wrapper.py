@@ -1,9 +1,15 @@
-from typing import Any
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any
 
 from django.apps import apps as django_apps
 from django.urls.base import reverse
 from edc_dashboard.url_names import url_names
 from edc_model_wrapper import ModelWrapper
+
+if TYPE_CHECKING:
+    from edc_visit_schedule import Schedule, VisitSchedule
+    from edc_visit_tracking.model_mixins import VisitModelMixin
 
 
 class AppointmentModelWrapperError(Exception):
@@ -20,31 +26,31 @@ class AppointmentModelWrapper(ModelWrapper):
     model = "edc_appointment.appointment"
     visit_model_wrapper_cls = None
 
-    def get_appt_status_display(self: Any) -> str:
+    def get_appt_status_display(self) -> str:
         return self.object.get_appt_status_display()
 
     @property
-    def title(self: Any) -> str:
+    def title(self) -> str:
         return self.object.title
 
     @property
-    def visit_code_sequence(self: Any) -> int:
+    def visit_code_sequence(self) -> int:
         return self.object.visit_code_sequence
 
     @property
-    def reason(self: Any) -> str:
+    def reason(self) -> str:
         return self.object.appt_reason
 
     @property
-    def visit_schedule(self: Any) -> Any:
+    def visit_schedule(self) -> VisitSchedule:
         return self.object.visit_schedule
 
     @property
-    def schedule(self: Any) -> Any:
+    def schedule(self) -> Schedule:
         return self.object.schedule
 
     @property
-    def wrapped_visit(self: Any) -> Any:
+    def wrapped_visit(self) -> VisitModelMixin:
         """Returns a wrapped persisted or non-persisted
         visit model instance.
         """
@@ -53,7 +59,7 @@ class AppointmentModelWrapper(ModelWrapper):
             visit_model = django_apps.get_model(self.visit_model_wrapper_cls.model)
             model_obj = visit_model(
                 appointment=self.object,
-                subject_identifier=self.subject_identifier,
+                subject_identifier=self.object.subject_identifier,
                 reason=self.object.appt_reason,
                 report_datetime=self.object.appt_datetime,
             )

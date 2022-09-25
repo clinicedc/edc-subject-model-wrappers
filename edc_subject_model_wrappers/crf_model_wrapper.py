@@ -1,7 +1,7 @@
-from edc_model_wrapper import ModelWrapper, PermissionsMixin
+from edc_model_wrapper import ModelWrapper, PermissionsModelWrapperMixin
 
 
-class CrfModelWrapper(PermissionsMixin, ModelWrapper):
+class CrfModelWrapper(PermissionsModelWrapperMixin, ModelWrapper):
 
     related_visit_model_attr = "subject_visit"
     next_url_name = "subject_dashboard_url"
@@ -12,11 +12,11 @@ class CrfModelWrapper(PermissionsMixin, ModelWrapper):
         return self.related_visit_model_attr or self.object.related_visit_model_attr()
 
     @property
-    def subject_visit(self):
+    def related_visit(self) -> str:
         return str(getattr(self.object, self.get_related_visit_model_attr()).id)
 
     @property
-    def appointment(self):
+    def appointment(self) -> str:
         return str(getattr(self.object, self.get_related_visit_model_attr()).appointment.id)
 
     @property

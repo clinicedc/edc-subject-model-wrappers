@@ -1,4 +1,6 @@
-from typing import Any
+from __future__ import annotations
+
+from typing import TYPE_CHECKING, Any
 
 from django.apps import apps as django_apps
 from django.conf import settings
@@ -6,6 +8,10 @@ from django.urls.base import reverse
 from django.urls.exceptions import NoReverseMatch
 from edc_metadata.constants import KEYED, REQUIRED
 from edc_model_wrapper import ModelWrapper
+
+if TYPE_CHECKING:
+    from django.db.models import QuerySet
+    from edc_appointment.models import Appointment
 
 
 class SubjectVisitModelWrapper(ModelWrapper):
@@ -18,19 +24,21 @@ class SubjectVisitModelWrapper(ModelWrapper):
     querystring_attrs = ["reason"]
 
     @property
-    def appointment(self: Any) -> str:
+    def appointment(self) -> str:
+        """Returns the appointment model instance id as a string"""
         return str(self.object.appointment.id)
 
     @property
-    def appointment_model_cls(self: Any) -> Any:
+    def appointment_model_cls(self) -> Appointment:
+        """Returns appointment model class"""
         return self.object.appointment.__class__
 
     @property
-    def subject_identifier(self: Any) -> str:
+    def subject_identifier(self) -> str:
         return self.object.subject_identifier
 
     @property
-    def crf_metadata(self: Any) -> Any:
+    def crf_metadata(self) -> QuerySet:
         crf_metadata_cls = django_apps.get_model("edc_metadata.crfmetadata")
         return crf_metadata_cls.objects.filter(
             subject_identifier=self.object.subject_identifier,
@@ -40,7 +48,7 @@ class SubjectVisitModelWrapper(ModelWrapper):
         )
 
     @property
-    def requisition_metadata(self: Any) -> Any:
+    def requisition_metadata(self) -> QuerySet:
         requisition_metadata_cls = django_apps.get_model("edc_metadata.requisitionmetadata")
         return requisition_metadata_cls.objects.filter(
             subject_identifier=self.object.subject_identifier,

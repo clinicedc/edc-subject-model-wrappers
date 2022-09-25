@@ -5,7 +5,7 @@ from edc_model_wrapper import ModelWrapper
 
 class SubjectRefusalModelWrapper(ModelWrapper):
 
-    model = None  # "myapp.subjectrefusal"
+    model: str = None  # "myapp.subjectrefusal"
     next_url_attrs = ["screening_identifier"]
     next_url_name = "screening_listboard_url"
 
