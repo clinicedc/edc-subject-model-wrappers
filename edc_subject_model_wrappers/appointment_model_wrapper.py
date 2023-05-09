@@ -17,7 +17,6 @@ class AppointmentModelWrapperError(Exception):
 
 
 class AppointmentModelWrapper(ModelWrapper):
-
     dashboard_url_name = "subject_dashboard_url"
     next_url_name = "subject_dashboard_url"
     next_url_attrs = ["subject_identifier"]
