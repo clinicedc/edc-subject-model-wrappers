@@ -15,7 +15,6 @@ if TYPE_CHECKING:
 
 
 class SubjectVisitModelWrapper(ModelWrapper):
-
     model = settings.SUBJECT_VISIT_MODEL
     cancel_url_attrs = ["subject_identifier"]
     cancel_url_name = "subject_dashboard_url"

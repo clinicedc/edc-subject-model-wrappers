@@ -14,7 +14,6 @@ from ..visit_schedule import visit_schedule1
 
 
 class MySubjectVisitModelWrapper(SubjectVisitModelWrapper):
-
     model = "edc_subject_model_wrappers.subjectvisit"
 
 

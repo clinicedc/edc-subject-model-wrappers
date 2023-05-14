@@ -9,24 +9,20 @@ from edc_visit_tracking.model_mixins import VisitModelMixin
 
 
 class SubjectConsent(models.Model):
-
     subject_identifier = models.CharField(max_length=25)
 
     consent_datetime = models.DateTimeField(default=get_utcnow)
 
 
 class SubjectVisit(VisitModelMixin, BaseUuidModel):
-
     pass
 
 
 class TestModel(models.Model):
-
     subject_visit = models.ForeignKey(SubjectVisit, on_delete=PROTECT)
 
 
 class BadSubjectVisit(models.Model):
-
     appointment = models.ForeignKey(Appointment, on_delete=PROTECT)
 
     subject_identifier = models.CharField(max_length=25)
@@ -39,5 +35,4 @@ class OnScheduleOne(SiteModelMixin, OnScheduleModelMixin, BaseUuidModel):
 
 
 class OffScheduleOne(SiteModelMixin, OffScheduleModelMixin, BaseUuidModel):
-
     pass
