@@ -2,7 +2,6 @@ from edc_model_wrapper import ModelWrapper, PermissionsModelWrapperMixin
 
 
 class CrfModelWrapper(PermissionsModelWrapperMixin, ModelWrapper):
-
     related_visit_model_attr = "subject_visit"
     next_url_name = "subject_dashboard_url"
     next_url_attrs = ["appointment", "subject_identifier"]

@@ -5,7 +5,6 @@ from django.core.exceptions import ObjectDoesNotExist
 
 
 class SubjectRefusalModelWrapperMixin:
-
     refusal_model_wrapper_cls = None
 
     @property
