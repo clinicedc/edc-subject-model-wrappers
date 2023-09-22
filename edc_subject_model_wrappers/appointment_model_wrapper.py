@@ -20,7 +20,7 @@ class AppointmentModelWrapper(ModelWrapper):
     dashboard_url_name = "subject_dashboard_url"
     next_url_name = "subject_dashboard_url"
     next_url_attrs = ["subject_identifier"]
-    querystring_attrs = ["subject_identifier", "reason"]
+    querystring_attrs = ["reason"]
     unscheduled_appointment_url_name = "edc_appointment:unscheduled_appointment_url"
     model = "edc_appointment.appointment"
     visit_model_wrapper_cls = None
