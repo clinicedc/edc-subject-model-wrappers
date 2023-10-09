@@ -4,7 +4,7 @@ from edc_dashboard.url_names import AlreadyRegistered, url_names
 from edc_facility import import_holidays
 from edc_registration.models import RegisteredSubject
 from edc_utils import get_utcnow
-from edc_visit_schedule import site_visit_schedules
+from edc_visit_schedule.site_visit_schedules import site_visit_schedules
 
 from edc_subject_model_wrappers import SubjectVisitModelWrapper
 

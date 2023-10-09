@@ -8,7 +8,8 @@ from edc_dashboard.url_names import url_names
 from edc_model_wrapper import ModelWrapper
 
 if TYPE_CHECKING:
-    from edc_visit_schedule import Schedule, VisitSchedule
+    from edc_visit_schedule.schedule import Schedule
+    from edc_visit_schedule.visit_schedule import VisitSchedule
     from edc_visit_tracking.model_mixins import VisitModelMixin
 
 
