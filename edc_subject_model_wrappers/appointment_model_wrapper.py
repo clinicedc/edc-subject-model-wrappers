@@ -54,29 +54,29 @@ class AppointmentModelWrapper(ModelWrapper):
         """Returns a wrapped persisted or non-persisted
         visit model instance.
         """
-        model_obj = self.object.related_visit
-        if not model_obj:
-            visit_model = django_apps.get_model(self.visit_model_wrapper_cls.model)
-            model_obj = visit_model(
+        related_visit_obj = self.object.related_visit
+        if not related_visit_obj:
+            related_visit_cls = django_apps.get_model(self.visit_model_wrapper_cls.model)
+            related_visit_obj = related_visit_cls(
                 appointment=self.object,
                 subject_identifier=self.object.subject_identifier,
                 reason=self.object.appt_reason,
                 report_datetime=self.object.appt_datetime,
             )
-        visit_model_wrapper = self.visit_model_wrapper_cls(
-            model_obj=model_obj, force_wrap=True
+        related_visit_wrapper = self.visit_model_wrapper_cls(
+            model_obj=related_visit_obj, force_wrap=True
         )
         if (
-            visit_model_wrapper.appointment_model_cls._meta.label_lower
+            related_visit_wrapper.appointment_model_cls._meta.label_lower
             != self.model_cls._meta.label_lower
         ):
             raise AppointmentModelWrapperError(
                 f"Declared model does not match appointment "
                 f"model in visit_model_wrapper. "
                 f"Got {self.model_cls._meta.label_lower} <> "
-                f"{visit_model_wrapper.appointment_model_cls._meta.label_lower}"
+                f"{related_visit_wrapper.appointment_model_cls._meta.label_lower}"
             )
-        return visit_model_wrapper
+        return related_visit_wrapper
 
     @property
     def dashboard_url(self: Any) -> str:
