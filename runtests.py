@@ -4,8 +4,9 @@ from pathlib import Path
 
 from edc_test_utils import DefaultTestSettings, func_main
 
-base_dir = Path(__file__).absolute().parent
 app_name = "edc_subject_model_wrappers"
+
+base_dir = Path(__file__).absolute().parent
 
 project_settings = DefaultTestSettings(
     calling_file=__file__,
