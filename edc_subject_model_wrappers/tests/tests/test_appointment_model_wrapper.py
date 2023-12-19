@@ -7,13 +7,13 @@ from edc_registration.models import RegisteredSubject
 from edc_utils import get_utcnow
 from edc_visit_schedule.site_visit_schedules import site_visit_schedules
 
-from edc_subject_model_wrappers import AppointmentModelWrapper, SubjectVisitModelWrapper
+from edc_subject_model_wrappers import AppointmentModelWrapper, RelatedVisitModelWrapper
 
 from ..models import Appointment, OnScheduleOne, SubjectVisit
 from ..visit_schedule import visit_schedule1
 
 
-class MySubjectVisitModelWrapper(SubjectVisitModelWrapper):
+class MyRelatedVisitModelWrapper(RelatedVisitModelWrapper):
     model = "edc_subject_model_wrappers.subjectvisit"
 
 
@@ -66,11 +66,11 @@ class TestModelWrapper(TestCase):
         in the Appointment configurations.
         """
 
-        class MyAppSubjectVisitModelWrapper(ModelWrapper):
+        class MyAppRelatedVisitModelWrapper(ModelWrapper):
             model = "myapp.subjectvisit"
 
         class MyAppointmentModelWrapper(AppointmentModelWrapper):
-            visit_model_wrapper_cls = MyAppSubjectVisitModelWrapper
+            visit_model_wrapper_cls = MyAppRelatedVisitModelWrapper
             model = "edc_appointment.appointment"
 
         model_obj = Appointment(visit_schedule_name="visit_schedule1")
@@ -83,7 +83,7 @@ class TestModelWrapper(TestCase):
         """
 
         class MyAppointmentModelWrapper(AppointmentModelWrapper):
-            visit_model_wrapper_cls = MySubjectVisitModelWrapper
+            visit_model_wrapper_cls = MyRelatedVisitModelWrapper
             model = "myapp.appointment"
 
         model_obj = Appointment(
@@ -103,7 +103,7 @@ class TestModelWrapper(TestCase):
         """
 
         class MyAppointmentModelWrapper(AppointmentModelWrapper):
-            visit_model_wrapper_cls = MySubjectVisitModelWrapper
+            visit_model_wrapper_cls = MyRelatedVisitModelWrapper
 
         model_obj = Appointment(
             subject_identifier=self.subject_identifier,
@@ -120,7 +120,7 @@ class TestModelWrapper(TestCase):
         """Assert visit model wrapper can be referenced more than once."""
 
         class MyAppointmentModelWrapper(AppointmentModelWrapper):
-            visit_model_wrapper_cls = MySubjectVisitModelWrapper
+            visit_model_wrapper_cls = MyRelatedVisitModelWrapper
 
         subject_identifier = "12345"
         report_datetime = get_utcnow()
