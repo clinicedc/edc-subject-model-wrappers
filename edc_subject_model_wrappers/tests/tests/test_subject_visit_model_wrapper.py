@@ -6,7 +6,7 @@ from edc_registration.models import RegisteredSubject
 from edc_utils import get_utcnow
 from edc_visit_schedule.site_visit_schedules import site_visit_schedules
 
-from edc_subject_model_wrappers import SubjectVisitModelWrapper
+from edc_subject_model_wrappers import RelatedVisitModelWrapper
 
 from ..models import Appointment, OnScheduleOne, SubjectVisit
 from ..visit_schedule import visit_schedule1
@@ -45,7 +45,7 @@ class TestModelWrapper(TestCase):
 
     def test_(self):
         model_obj = SubjectVisit(report_datetime=get_utcnow())
-        wrapper = SubjectVisitModelWrapper(model_obj=model_obj)
+        wrapper = RelatedVisitModelWrapper(model_obj=model_obj)
         self.assertEqual(wrapper.model, "edc_subject_model_wrappers.subjectvisit")
         self.assertEqual(wrapper.model_cls, SubjectVisit)
 
@@ -54,5 +54,5 @@ class TestModelWrapper(TestCase):
         subject_visit = SubjectVisit.objects.create(
             appointment=appointment, report_datetime=get_utcnow()
         )
-        wrapper = SubjectVisitModelWrapper(model_obj=subject_visit)
+        wrapper = RelatedVisitModelWrapper(model_obj=subject_visit)
         self.assertEqual(str(appointment.id), wrapper.appointment)

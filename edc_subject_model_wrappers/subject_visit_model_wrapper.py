@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     from edc_appointment.models import Appointment
 
 
-class SubjectVisitModelWrapper(ModelWrapper):
+class RelatedVisitModelWrapper(ModelWrapper):
     model = settings.SUBJECT_VISIT_MODEL
     cancel_url_attrs = ["subject_identifier"]
     cancel_url_name = "subject_dashboard_url"
